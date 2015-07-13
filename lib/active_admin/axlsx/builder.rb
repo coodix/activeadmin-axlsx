@@ -42,7 +42,7 @@ module ActiveAdmin
       #   @see ActiveAdmin::Axlsx::DSL
       def initialize(resource_class, options={}, &block)
         @skip_header = false
-        @columns = nil
+        @columns = []
         @resource_class = resource_class
         parse_options options
         instance_eval &block if block_given?
@@ -93,9 +93,6 @@ module ActiveAdmin
         @before_filter = block
       end
 
-      # The columns this builder will be serializing
-      attr_reader :columns
-      
       def columns
         @columns ||= resource_columns(@resource_class)
       end
@@ -128,7 +125,7 @@ module ActiveAdmin
       # removes columns by name
       # each column_name should be a symbol
       def delete_columns(*column_names)
-        columns.delete_if { |column| column_names.include?(column.name) }
+        @columns.delete_if { |column| column_names.include?(column.name) }
       end
 
       # Serializes the collection provided
