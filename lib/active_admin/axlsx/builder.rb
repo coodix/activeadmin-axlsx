@@ -128,7 +128,7 @@ module ActiveAdmin
       # removes columns by name
       # each column_name should be a symbol
       def delete_columns(*column_names)
-        @columns.delete_if { |column| column_names.include?(column.name) }
+        columns.delete_if { |column| column_names.include?(column.name) }
       end
 
       # Serializes the collection provided
